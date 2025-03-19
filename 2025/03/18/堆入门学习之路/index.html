@@ -21,22 +21,24 @@
   <meta name="author" content="vstral">
   <meta name="keywords" content="pwn,vstral,ctf,computer,security,二进制,网络安全">
   
-    <meta name="description" content="hexo + github + PicGo实现博客系统Hexo 博客搭建并部署到 GitHub Pages(2024最新详细版)_github pages上部署hexo-CSDN博客 GitHub与PicGo搭建免费稳定图床并实现Typora内复制自动上传_typora复制的时候如何自动复制图片-CSDN博客">
+    <meta name="description" content="一、UAFUAF即use after free，就是在程序使用malloc申请了内存并且写入了数据之后，通过free释放了堆块，但是没有清除数据，导致再次申请malloc时再次分配到这块内存，里面的数据被复用。（再次申请的堆块比之前申请的小） 二、off by one">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vstral blog">
-<meta property="og:url" content="https://vstralcn.github.io/2025/03/16/github%E5%AF%B9%E6%8E%A5picgo/index.html">
+<meta property="og:title" content="堆入门学习之路">
+<meta property="og:url" content="https://vstralcn.github.io/2025/03/18/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/index.html">
 <meta property="og:site_name" content="vstral blog">
-<meta property="og:description" content="hexo + github + PicGo实现博客系统Hexo 博客搭建并部署到 GitHub Pages(2024最新详细版)_github pages上部署hexo-CSDN博客 GitHub与PicGo搭建免费稳定图床并实现Typora内复制自动上传_typora复制的时候如何自动复制图片-CSDN博客">
+<meta property="og:description" content="一、UAFUAF即use after free，就是在程序使用malloc申请了内存并且写入了数据之后，通过free释放了堆块，但是没有清除数据，导致再次申请malloc时再次分配到这块内存，里面的数据被复用。（再次申请的堆块比之前申请的小） 二、off by one">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-16T13:12:38.630Z">
-<meta property="article:modified_time" content="2025-03-16T13:20:31.839Z">
+<meta property="article:published_time" content="2025-03-18T13:10:43.000Z">
+<meta property="article:modified_time" content="2025-03-19T09:12:23.161Z">
 <meta property="article:author" content="vstral">
-<meta property="article:tag" content="pwn,vstral,ctf,computer,security,二进制,网络安全">
+<meta property="article:tag" content="heap">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="入门">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>vstral blog</title>
+  <title>堆入门学习之路 - vstral blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="堆入门学习之路"></span>
           
         </div>
 
@@ -213,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-16 21:12" pubdate>
-          2025年3月16日 晚上
+        <time datetime="2025-03-18 21:10" pubdate>
+          2025年3月18日 晚上
         </time>
       </span>
     
@@ -225,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          65 字
+          82 字
         
       </span>
     
@@ -273,14 +275,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">堆入门学习之路</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="hexo-github-PicGo实现博客系统"><a href="#hexo-github-PicGo实现博客系统" class="headerlink" title="hexo + github + PicGo实现博客系统"></a><strong>hexo + github + PicGo实现博客系统</strong></h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/clearloe/article/details/139879493">Hexo 博客搭建并部署到 GitHub Pages(2024最新详细版)_github pages上部署hexo-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhebushibiaoshifu/article/details/129455228">GitHub与PicGo搭建免费稳定图床并实现Typora内复制自动上传_typora复制的时候如何自动复制图片-CSDN博客</a></p>
-
+                <h1 id="一、UAF"><a href="#一、UAF" class="headerlink" title="一、UAF"></a>一、UAF</h1><p>UAF即use after free，就是在程序使用malloc申请了内存并且写入了数据之后，通过free释放了堆块，但是没有清除数据，导致再次申请malloc时再次分配到这块内存，里面的数据被复用。（再次申请的堆块比之前申请的小）</p>
+<h2 id="二、off-by-one"><a href="#二、off-by-one" class="headerlink" title="二、off by one"></a>二、off by one</h2>
                 
               </div>
             
@@ -288,6 +289,17 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/heap/" class="print-no-link">#heap</a>
+      
+        <a href="/tags/%E5%A0%86/" class="print-no-link">#堆</a>
+      
+        <a href="/tags/%E5%85%A5%E9%97%A8/" class="print-no-link">#入门</a>
+      
+    </div>
   
 </div>
 
@@ -297,8 +309,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>https://vstralcn.github.io/2025/03/16/github对接picgo/</div>
+      <div>堆入门学习之路</div>
+      <div>https://vstralcn.github.io/2025/03/18/堆入门学习之路/</div>
     </div>
     <div class="license-meta">
       
@@ -310,7 +322,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月16日</div>
+          <div>2025年3月18日</div>
         </div>
       
       
@@ -342,15 +354,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/18/%E3%80%90PWN%E3%80%91%E6%95%B0%E7%BB%84%E6%BA%A2%E5%87%BA-%E8%B6%8A%E7%95%8C%E8%AF%BB%E5%86%99/" title="【PWN】数组溢出 越界读写">
+                      <a href="/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/" title="Docker中配置ubuntu16.04环境">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【PWN】数组溢出 越界读写</span>
+                        <span class="hidden-mobile">Docker中配置ubuntu16.04环境</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/03/18/%E3%80%90PWN%E3%80%91%E6%95%B0%E7%BB%84%E6%BA%A2%E5%87%BA-%E8%B6%8A%E7%95%8C%E8%AF%BB%E5%86%99/" title="【PWN】数组溢出 越界读写">
+                        <span class="hidden-mobile">【PWN】数组溢出 越界读写</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
