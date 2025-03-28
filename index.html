@@ -230,48 +230,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/" target="_self">
-          Docker中配置ubuntu16.04环境
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/" target="_self">
-        <div>
-          因为学习堆的需要，所以需要配置低版本的ubuntu，记录一下配置路径一、拉取ubuntu16.04镜像12docker pull ubuntu:16.04docker images 可以查看已拉取的镜像  二、启动镜像配置测试题目环境123456789docker run ：创建一个新的容器并运行一个命令-i: 以交互模式运行容器，通常与 -t 同时使用；-P: 随机端口映射，容器内部端口随机映射
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-03-18 21:24" pubdate>
-              2025-03-18
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/03/18/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/" target="_self">
+        <a href="/2025/03/25/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/" target="_self">
           堆入门学习之路
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/18/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/25/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/" target="_self">
         <div>
-          一、UAFUAF即use after free，就是在程序使用malloc申请了内存并且写入了数据之后，通过free释放了堆块，但是没有清除数据，导致再次申请malloc时再次分配到这块内存，里面的数据被复用。（再次申请的堆块比之前申请的小） 二、off by one
+          找到他们的目录，然后在pwn题目文件目录下运行以下两条命令: 12345678patchelf --set-interpreter 。/ld-linux-x86-64.so.2 ./pwn patchelf --add-needed 你的文件目录/libc.so.6 ./pwn patchelf --add-needed 你的目录/libpthread.so.0 ./pwn （如果提示没有libp
         </div>
       </a>
 
@@ -279,8 +246,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-03-18 21:10" pubdate>
-              2025-03-18
+            <time datetime="2025-03-25 21:10" pubdate>
+              2025-03-25
             </time>
           </div>
         
@@ -296,6 +263,39 @@
               <a href="/tags/%E5%85%A5%E9%97%A8/">#入门</a>
             
           </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/" target="_self">
+          Docker中配置ubuntu16.04环境
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/" target="_self">
+        <div>
+          利用docker部署pwn题目靶机环境 123docker build -t ubuntu16_pwn .docker run -it --rm -p 1337:1337 --add-host=host.docker.internal:host-gateway ubuntu16_pwn    利用docker创建ubuntu16.04调试做题环境
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-03-18 21:24" pubdate>
+              2025-03-18
+            </time>
+          </div>
+        
+        
         
       </div>
     </article>
